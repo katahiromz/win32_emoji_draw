@@ -33,13 +33,27 @@ elseif (MSVC)
 endif()
 
 ##############################################################################
+# UTF-8 in source code
 
-# dwrite_ver.exe
-add_executable(dwrite_ver WIN32 dwrite_ver.cpp resource.rc)
-target_link_libraries(dwrite_ver PRIVATE gdi32 user32 comctl32 d2d1 dwrite)
+if (MSVC)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /utf-8")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
+endif()
+
+##############################################################################
 
 # gdi_ver.exe
 add_executable(gdi_ver WIN32 gdi_ver.cpp resource.rc)
 target_link_libraries(gdi_ver PRIVATE gdi32 user32 comctl32)
+if(MSVC)
+    target_link_options(gdi_ver PRIVATE /MANIFEST:NO)
+endif()
+
+# dwrite_ver.exe
+add_executable(dwrite_ver WIN32 dwrite_ver.cpp resource.rc)
+target_link_libraries(dwrite_ver PRIVATE gdi32 user32 comctl32 d2d1 dwrite)
+if(MSVC)
+    target_link_options(dwrite_ver PRIVATE /MANIFEST:NO)
+endif()
 
 ##############################################################################
