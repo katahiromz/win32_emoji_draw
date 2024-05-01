@@ -11,7 +11,7 @@
 #include <cstdio>
 
 #define WIDTH 600
-#define HEIGHT 480
+#define HEIGHT 400
 #define CLASSNAME L"Win32 Emoji Draw"
 #define FONT_SIZE 80
 
@@ -348,8 +348,14 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdS
     }
 
     auto title = L"Win32 Emoji Rendering Demo";
-    HWND hwnd = CreateWindowW(CLASSNAME, title, WS_OVERLAPPEDWINDOW,
-                              CW_USEDEFAULT, CW_USEDEFAULT, WIDTH, HEIGHT,
+    auto style = WS_OVERLAPPEDWINDOW;
+    auto exstyle = 0;
+    RECT rc = { 0, 0, WIDTH, HEIGHT };
+    BOOL bMenu = FALSE;
+    AdjustWindowRectEx(&rc, style, bMenu, exstyle);
+    INT cx = rc.right - rc.left, cy = rc.bottom - rc.top;
+    HWND hwnd = CreateWindowW(CLASSNAME, title, style,
+                              CW_USEDEFAULT, CW_USEDEFAULT, cx, cy,
                               NULL, NULL, hInstance, NULL);
     if (!hwnd)
     {
