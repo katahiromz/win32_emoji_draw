@@ -189,9 +189,9 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, INT nCmdS
     BOOL bMenu = FALSE;
     AdjustWindowRectEx(&rc, style, bMenu, exstyle);
     INT cx = rc.right - rc.left, cy = rc.bottom - rc.top;
-    HWND hwnd = CreateWindowW(CLASSNAME, title, style,
-                              CW_USEDEFAULT, CW_USEDEFAULT, cx, cy,
-                              NULL, NULL, hInstance, NULL);
+    HWND hwnd = CreateWindowExW(exstyle, CLASSNAME, title, style,
+                                CW_USEDEFAULT, CW_USEDEFAULT, cx, cy,
+                                NULL, NULL, hInstance, NULL);
     if (!hwnd)
     {
         MessageBoxA(NULL, "Failed to create main window.", NULL, MB_ICONERROR);
